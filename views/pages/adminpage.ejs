@@ -1,0 +1,43 @@
+<%- include('../partials/header'); %>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-2" id="external-events">
+             <p>
+             <div id="drag-event-title">Event to drag</div>
+             </p>
+
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                <div class="fc-event-main">My Event 1</div>
+            </div>
+
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                <div class="fc-event-main">My Event 2</div>
+            </div>
+
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                <div class="fc-event-main">My Event 3</div>
+            </div>
+
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                <div class="fc-event-main">My Event 4</div>
+            </div>
+            
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                <div class="fc-event-main">My Event 5</div>
+            </div>
+
+            <p>
+                <input type="checkbox" id="drop-remove" />
+                <label for="drop-remove" id="drop-text">remove after drop</label>
+            </p>
+        </div>
+
+        <div class="col-10" id="calendar-container">
+             <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>
