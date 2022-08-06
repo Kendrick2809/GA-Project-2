@@ -4,34 +4,71 @@
     <div class="row">
 
         <div class="col-2" id="external-events">
-             <p>
-             <div id="drag-event-title">Event to drag</div>
-             </p>
+       
+            <form id="event-form" class="mt-3" method="POST" action="/users/admin">
+                <div id="create-event-title">Create event</div>
+                <div class="mb-3">
+                    <label for="event-title" class="form-label">Event title</label>
+                    <input type="text" class="form-control" id="event-title" name="eventTitle">
+                  </div>
 
-            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                <div class="fc-event-main">My Event 1</div>
-            </div>
+                  <div class="mb-3">
+                    <label for="event-start-date" class="form-label">Start date</label>
+                    <input type="date" class="form-control" id="start-date" name="eventStartDate">
+                  </div>
 
-            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                <div class="fc-event-main">My Event 2</div>
-            </div>
+                  <div class="mb-3">
+                    <label for="event-start-time" class="form-label">Start time</label>
+                    <input type="time" class="form-control" id="start-time" name="eventStartTime">
+                  </div>
 
-            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                <div class="fc-event-main">My Event 3</div>
-            </div>
+                  <div class="mb-3">
+                    <label for="event-end" class="form-label">End date</label>
+                    <input type="date" class="form-control" id="end-date" name="eventEnd">
+                  </div>
 
-            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                <div class="fc-event-main">My Event 4</div>
-            </div>
-            
-            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                <div class="fc-event-main">My Event 5</div>
-            </div>
+                  <div class="mb-3">
+                    <label for="event-end-time" class="form-label">End time</label>
+                    <input type="time" class="form-control" id="end-time" name="eventEndTime">
+                  </div>
 
-            <p>
-                <input type="checkbox" id="drop-remove" />
-                <label for="drop-remove" id="drop-text">remove after drop</label>
-            </p>
+                  <div class="success-msg"></div>
+
+                  <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+                </div>
+<br>
+                  <p>
+                    <div id="drag-event-title" >Event to drag</div>
+                    </p>
+       
+                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                       <div class="fc-event-main">My Event 1</div>
+                   </div>
+       
+                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                       <div class="fc-event-main">My Event 2</div>
+                   </div>
+       
+                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                       <div class="fc-event-main">My Event 3</div>
+                   </div>
+       
+                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                       <div class="fc-event-main">My Event 4</div>
+                   </div>
+                   
+                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
+                       <div class="fc-event-main">My Event 5</div>
+                   </div>
+       
+                   <p>
+                       <input type="checkbox" id="drop-remove" />
+                       <label for="drop-remove" id="drop-text">remove after drop</label>
+                   </p>
+            </form>
+
+
         </div>
 
         <div class="col-10" id="calendar-container">

@@ -17,12 +17,11 @@ html, body {
   }
   
   #external-events {
-    position: fixed;
-    margin: 130px auto;
+    height:auto;
     top: 20px;
     left: 20px;
     width: 150px;
-    padding: 0 10px;
+    padding: 0px 10px;
     border: 1px solid #ccc;
     background: rgb(231, 238, 232);
   }
@@ -31,15 +30,10 @@ html, body {
     cursor: move;
     margin: 3px 0;
   }
-
-  #calendar-container {
-    position: relative;
-    margin-left: 100px;
-  }
   
   #calendar {
     max-width: 1100px;
-    margin: 20px auto;
+    margin: 20px 20px;
   }
 
   #drop-text{
@@ -49,4 +43,19 @@ html, body {
   #drag-event-title{
     font-weight: bold;
     font-size: medium;
+  }
+
+  #create-event-title{
+    font-weight: bold;
+    font-size: medium;
+    margin-bottom:20px;
+  }
+
+  #event-form{
+    margin: 10px auto;
+    padding: 10px auto;
+  }
+
+  #submit-button{
+      color:white;
   }

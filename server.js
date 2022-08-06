@@ -35,6 +35,7 @@ app.get("/", (req, res) => {
 
 app.get("/users/admin", pageController.showAdminPage);
 app.get("/users/user", pageController.showUserPage);
+app.post("/users/admin", pageController.inputEvent);
 
 // Users Routes
 app.get("/users/register", userController.showRegistrationForm);

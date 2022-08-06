@@ -1,3 +1,8 @@
+const eventDatabase = require("../../models/find_data");
+const eventData = eventDatabase.listEvent();
+
+console.log(eventData);
+
 document.addEventListener("DOMContentLoaded", function () {
   let Calendar = FullCalendar.Calendar;
   let Draggable = FullCalendar.Draggable;

@@ -11,9 +11,10 @@ const eventSchema = new mongoose.Schema({
   },
   end: {
     type: Date,
+    required: true,
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const Event = mongoose.model("Event", eventSchema);
 
-module.exports = User;
+module.exports = Event;
