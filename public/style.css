@@ -45,7 +45,7 @@ html, body {
     font-size: medium;
   }
 
-  #create-event-title{
+  #create-event-title, #edit-event-title{
     font-weight: bold;
     font-size: medium;
     margin-bottom:20px;

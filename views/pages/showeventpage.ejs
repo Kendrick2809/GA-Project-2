@@ -1,0 +1,83 @@
+<%- include('../partials/header'); %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-2" id="external-events">
+      <form
+        id="event-delete-form"
+        class="mt-3"
+        method="POST"
+        action="/users/admin/delete?_method=DELETE"
+      >
+        <div id="edit-event-title">Update event</div>
+        <div class="mb-3">
+          <label for="update-event-title" class="form-label">Event title</label>
+          <div id="eventIdUpdateTitle"><%= eventFindById.title %></div>
+          <input
+            type="text"
+            class="form-control"
+            id="title-to-update"
+            name="titleToUpdate"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="update-event-start-date" class="form-label"
+            >Start date</label
+          >
+          <input
+            type="date"
+            class="form-control"
+            id="start-date-to-update"
+            name="startDateToUpdate"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="update-event-start-time" class="form-label"
+            >Start time</label
+          >
+          <input
+            type="time"
+            class="form-control"
+            id="update-start-time"
+            name="updateEventStartTime"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="update-event-end-date" class="form-label">End date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="end-date-to-update"
+            name="endDateToUpdate"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="update-event-end-time" class="form-label">End time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="update-end-time"
+            name="updateEventEndTime"
+          />
+        </div>
+
+        <div class="mb-3 text-center">
+          <button type="submit" class="btn btn-primary" id="submit-button">
+            Delete
+          </button>
+        </div>
+      </form>
+      <br />
+    </div>
+
+    <div class="col-10" id="calendar-container">
+      <div id="calendar"></div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer'); %>

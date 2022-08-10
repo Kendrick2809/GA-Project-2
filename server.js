@@ -2,7 +2,9 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 const session = require("express-session");
+const eventModel = require("./models/events");
 
 const app = express();
 const port = 3000;
@@ -18,6 +20,7 @@ app.set("view engine", "ejs");
 
 // Apply middlewares
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 app.use(express.static("public"));
 app.use(
   session({
@@ -36,6 +39,14 @@ app.get("/", (req, res) => {
 app.get("/users/admin", pageController.showAdminPage);
 app.get("/users/user", pageController.showUserPage);
 app.post("/users/admin", pageController.inputEvent);
+app.delete("/users/admin", pageController.deleteEvent);
+app.get("/users/admin/:event_id", pageController.showEventPage);
+
+app.get("/events/all", async (req, res) => {
+  const eventData = await eventModel.find({});
+  console.log(eventData);
+  res.json(eventData);
+});
 
 // Users Routes
 app.get("/users/register", userController.showRegistrationForm);

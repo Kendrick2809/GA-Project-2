@@ -1,80 +1,98 @@
 <%- include('../partials/header'); %>
 
 <div class="container">
-    <div class="row">
-
-        <div class="col-2" id="external-events">
-       
-            <form id="event-form" class="mt-3" method="POST" action="/users/admin">
-                <div id="create-event-title">Create event</div>
-                <div class="mb-3">
-                    <label for="event-title" class="form-label">Event title</label>
-                    <input type="text" class="form-control" id="event-title" name="eventTitle">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="event-start-date" class="form-label">Start date</label>
-                    <input type="date" class="form-control" id="start-date" name="eventStartDate">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="event-start-time" class="form-label">Start time</label>
-                    <input type="time" class="form-control" id="start-time" name="eventStartTime">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="event-end" class="form-label">End date</label>
-                    <input type="date" class="form-control" id="end-date" name="eventEnd">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="event-end-time" class="form-label">End time</label>
-                    <input type="time" class="form-control" id="end-time" name="eventEndTime">
-                  </div>
-
-                  <div class="success-msg"></div>
-
-                  <div class="mb-3 text-center">
-                    <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
-                </div>
-<br>
-                  <p>
-                    <div id="drag-event-title" >Event to drag</div>
-                    </p>
-       
-                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                       <div class="fc-event-main">My Event 1</div>
-                   </div>
-       
-                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                       <div class="fc-event-main">My Event 2</div>
-                   </div>
-       
-                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                       <div class="fc-event-main">My Event 3</div>
-                   </div>
-       
-                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                       <div class="fc-event-main">My Event 4</div>
-                   </div>
-                   
-                   <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event">
-                       <div class="fc-event-main">My Event 5</div>
-                   </div>
-       
-                   <p>
-                       <input type="checkbox" id="drop-remove" />
-                       <label for="drop-remove" id="drop-text">remove after drop</label>
-                   </p>
-            </form>
-
-
+  <div class="row">
+    <div class="col-2" id="external-events">
+      <form id="event-form" class="mt-3" method="POST" action="/users/admin">
+        <div id="create-event-title">Create event</div>
+        <div class="mb-3">
+          <label for="event-title" class="form-label">Event title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="event-title"
+            name="eventTitle"
+          />
         </div>
 
-        <div class="col-10" id="calendar-container">
-             <div id="calendar"></div>
+        <div class="mb-3">
+          <label for="event-start-date" class="form-label">Start date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="start-date"
+            name="eventStartDate"
+          />
         </div>
+
+        <div class="mb-3">
+          <label for="event-start-time" class="form-label">Start time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="start-time"
+            name="eventStartTime"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="event-end" class="form-label">End date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="end-date"
+            name="eventEndDate"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="event-end-time" class="form-label">End time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="end-time"
+            name="eventEndTime"
+          />
+        </div>
+
+        <div class="success-msg"></div>
+
+        <div class="mb-3 text-center">
+          <button type="submit" class="btn btn-primary" id="submit-button">
+            Submit
+          </button>
+        </div>
+      </form>
+
+      <br />
+      <form
+        id="event-delete-form"
+        class="mt-3"
+        method="POST"
+        action="/users/admin?_method=DELETE"
+      >
+        <div id="edit-event-title">Delete event</div>
+        <div class="mb-3">
+          <label for="title-to-delete" class="form-label">Event Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title-to-delete"
+            name="titleToDelete"
+          />
+        </div>
+        <div class="mb-3 text-center">
+          <button type="submit" class="btn btn-primary" id="submit-button">
+            Delete
+          </button>
+        </div>
+      </form>
     </div>
-</div>
 
-<%- include('../partials/footer'); %>
+    <div class="col-10" id="calendar-container">
+      <div id="calendar"></div>
+    </div>
+  </div>
+
+  <%- include('../partials/footer'); %>
+</div>
