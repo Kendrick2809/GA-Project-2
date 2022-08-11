@@ -46,6 +46,15 @@ const eventdata = axios({
     //     info.draggedEl.parentNode.removeChild(info.draggedEl);
     //   }
     // },
+    eventClick: function (info) {
+      function isEventTitle(item) {
+        return item.title === info.event.title;
+      }
+
+      let ID = response.data.find(isEventTitle)._id;
+
+      window.location.href = "http://localhost:3000/users/admin/" + ID;
+    },
     events: response.data,
     dateClick: function (info) {
       alert("clicked " + info.dateStr);

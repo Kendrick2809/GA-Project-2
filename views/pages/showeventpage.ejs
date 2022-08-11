@@ -7,17 +7,18 @@
         id="event-delete-form"
         class="mt-3"
         method="POST"
-        action="/users/admin/delete?_method=DELETE"
+        action="/users/admin/<%= eventFindById._id %>?_method=PUT"
       >
         <div id="edit-event-title">Update event</div>
         <div class="mb-3">
           <label for="update-event-title" class="form-label">Event title</label>
-          <div id="eventIdUpdateTitle"><%= eventFindById.title %></div>
+
           <input
             type="text"
             class="form-control"
             id="title-to-update"
             name="titleToUpdate"
+            value="<%= eventFindById.title %>"
           />
         </div>
 
@@ -30,6 +31,7 @@
             class="form-control"
             id="start-date-to-update"
             name="startDateToUpdate"
+            value="<%= eventFindById.start.toISOString().split('T')[0] %>"
           />
         </div>
 
@@ -42,6 +44,7 @@
             class="form-control"
             id="update-start-time"
             name="updateEventStartTime"
+            value="<%= eventFindById.start.toISOString().split('T')[1].split('.')[0] %>"
           />
         </div>
 
@@ -52,6 +55,7 @@
             class="form-control"
             id="end-date-to-update"
             name="endDateToUpdate"
+            value="<%= eventFindById.end.toISOString().split('T')[0] %>"
           />
         </div>
 
@@ -62,16 +66,29 @@
             class="form-control"
             id="update-end-time"
             name="updateEventEndTime"
+            value="<%= eventFindById.end.toISOString().split('T')[1].split('.')[0] %>"
           />
         </div>
 
+        <div class="mb-3 text-center">
+          <button type="submit" class="btn btn-primary" id="submit-button">
+            Update
+          </button>
+        </div>
+      </form>
+
+      <form
+        id="event-delete-form"
+        class="mt-3"
+        method="POST"
+        action="/users/admin/<%= eventFindById._id %>?_method=DELETE"
+      >
         <div class="mb-3 text-center">
           <button type="submit" class="btn btn-primary" id="submit-button">
             Delete
           </button>
         </div>
       </form>
-      <br />
     </div>
 
     <div class="col-10" id="calendar-container">

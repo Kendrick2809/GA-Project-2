@@ -1,5 +1,7 @@
 const eventModel = require("../../models/events");
 
+const convertDateAndTime = function (date, time) {};
+
 const controller = {
   showAdminPage: async (req, res) => {
     let eventData = null;
@@ -15,7 +17,7 @@ const controller = {
     console.log(eventData);
     console.log("after event data found");
 
-    res.render("pages/adminpage", eventData);
+    res.render("pages/adminpage");
   },
 
   showUserPage: (req, res) => {
@@ -24,10 +26,22 @@ const controller = {
 
   inputEvent: async (req, res) => {
     const eventData = req.body;
-    const eventStartMoment =
-      eventData.eventStartDate + "T" + eventData.eventStartTime + ":00.000Z";
-    const eventEndMoment =
-      eventData.eventEndDate + "T" + eventData.eventEndTime + ":00.000Z";
+
+    if (
+      !eventData.eventStartDate ||
+      !eventData.eventEndDate ||
+      !eventData.eventTitle
+    ) {
+      res.send("Event input not completed.");
+    }
+
+    const eventStartMoment = new Date(
+      eventData.eventStartDate + " " + eventData.eventStartTime + " UTC"
+    ).toISOString();
+    const eventEndMoment = new Date(
+      eventData.eventEndDate + " " + eventData.eventEndTime + " UTC"
+    ).toISOString();
+
     try {
       await eventModel.create({
         title: eventData.eventTitle,
@@ -100,16 +114,59 @@ const controller = {
 
     const eventID = req.params.event_id;
 
-    const event = await eventModel.find({});
+    // const event = await eventModel.find({});
 
-    const requestedEventId = event[eventID]._id;
+    // const requestedEventId = event[eventID]._id;
 
-    console.log(requestedEventId);
+    // console.log(requestedEventId);
 
-    const eventFindById = await eventModel.findById(requestedEventId);
+    const eventFindById = await eventModel.findById(eventID);
 
     console.log(eventFindById);
 
+    res.render("pages/showeventpage", { eventFindById });
+  },
+  updateEvent: async (req, res) => {
+    const eventID = req.params.event_id;
+    const eventToUpdate = req.body;
+    const eventStart = new Date(
+      eventToUpdate.startDateToUpdate +
+        " " +
+        eventToUpdate.updateEventStartTime +
+        " UTC"
+    );
+    const eventStartISO = eventStart.toISOString();
+
+    const eventEnd = new Date(
+      eventToUpdate.endDateToUpdate +
+        " " +
+        eventToUpdate.updateEventEndTime +
+        " UTC"
+    );
+    const eventEndISO = eventEnd.toISOString();
+
+    const eventFindByIdAndUpdate = await eventModel.findByIdAndUpdate(eventID, {
+      title: eventToUpdate.titleToUpdate,
+      start: eventStartISO,
+      end: eventEndISO,
+    });
+
+    const eventFindById = await eventModel.findByIdAndUpdate(eventID);
+
+    res.render("pages/showeventpage", { eventFindById });
+  },
+  deleteEventID: async (req, res) => {
+    const eventID = req.params.event_id;
+    const eventFindById = await eventModel.findById(eventID);
+    try {
+      eventData = await eventModel.deleteOne({
+        _id: eventID,
+      });
+    } catch (err) {
+      console.log(err);
+      res.send("failed to find collection");
+      return;
+    }
     res.render("pages/showeventpage", { eventFindById });
   },
 };

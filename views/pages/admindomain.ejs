@@ -17,32 +17,19 @@
                         </div>
                         
 
-                        <form id="login-form" class="mt-5" method="POST" action="/users/login">
+                        <form id="domain-form" class="mt-5" method="POST" action="/users/admin/<%= userFindById._id %>">
 
                             <ul class="error-msgs"></ul>
 
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <label for="email" class="form-label">Domain</label>
+                                <input type="text" class="form-control" id="domain" name="domain">
                             </div>
 
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
-                            </div>
-
-                            <!-- <div class="mb-3">
-                                <label for="account-type" class="form-label">Sign in as</label>
-                                <input type="text" class="form-control" id="account-type" name="logintype" placeholder='e.g. User or Admin'>
-                            </div> -->
-
-                            <div class="success-msg"></div>
-                
-                           
                             <div class="form-check text-xs">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1">
                                 <label class="form-check-label" for="flexRadioDefault1" >
-                                  Login as admin
+                                  Create new domain
                                 </label>
                             </div>
 
@@ -50,7 +37,7 @@
                                 <input class="form-check-input" type="radio" 
                                 name="flexRadioDefault" id="flexRadioDefault2" value="2" checked >
                                 <label class="form-check-label" for="flexRadioDefault2" >
-                                  Login as user
+                                  Login to existing domain
                                 </label>
                             </div>
 
@@ -59,7 +46,12 @@
                                 <button type="submit" class="btn btn-primary" id="send-button">Send</button>
                             </div>
 
+                           
+
                         </form>
+
+
+                    
                     </div>
 
                 </div>

@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const userModel = require("../../models/users");
+const domainModel = require("../../models/domains");
 const userValidators = require("../validators/users");
 
 const controller = {
@@ -8,7 +9,6 @@ const controller = {
   },
 
   register: async (req, res) => {
-    // validations
     const validationResults = userValidators.registerValidator.validate(
       req.body
     );
@@ -71,6 +71,8 @@ const controller = {
       return;
     }
 
+    const userID = user._id;
+
     // use bcrypt to compare the given password with the one store as has in DB
 
     console.log(validatedResults.password);
@@ -110,14 +112,62 @@ const controller = {
         // validate login type
 
         if (validatedResults.flexRadioDefault[0] == "2") {
-          res.redirect("/users/user");
+          const userRoute = "users/user/" + userID;
+          res.redirect(userRoute);
         } else if (validatedResults.flexRadioDefault[0] == "1") {
-          res.redirect("/users/admin");
+          const adminRoute = "/users/admin/" + userID;
+          res.redirect(adminRoute);
         }
       });
     });
 
     // res.send('login successful')
+  },
+
+  showAdminDomainPage: async (req, res) => {
+    const userID = req.params.user_id;
+    console.log(userID);
+    const userFindById = await userModel.findById(userID);
+    const userEmail = userFindById.email;
+    console.log(userEmail);
+    res.render("pages/admindomain", { userFindById });
+  },
+
+  setDomain: async (req, res) => {
+    const userID = req.params.user_id;
+    console.log(userID);
+    console.log("testing1");
+
+    const domainStatus = req.body;
+
+    const userFindById = await userModel.findById(userID);
+    console.log("testing2");
+
+    const userEmail = userFindById.email;
+    console.log(userEmail);
+
+    try {
+      await domainModel.create({
+        domain: domainStatus.domain,
+        admin: userEmail,
+      });
+    } catch (err) {
+      console.log(err);
+      res.send("failed to create user");
+      return;
+    }
+
+    // req.session.save(function (err) {
+    //   if (err) {
+    //     return next(err);
+    //   }
+
+    //   if (domainStatus.flexRadioDefault[0] == "2") {
+    //     res.redirect("/users/admin");
+    //   } else if (domainStatus.flexRadioDefault[0] == "1") {
+    //     res.redirect("/users/admin");
+    //   }
+    // });
   },
 };
 

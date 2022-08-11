@@ -40,7 +40,9 @@ app.get("/users/admin", pageController.showAdminPage);
 app.get("/users/user", pageController.showUserPage);
 app.post("/users/admin", pageController.inputEvent);
 app.delete("/users/admin", pageController.deleteEvent);
-app.get("/users/admin/:event_id", pageController.showEventPage);
+app.get("/users/admin/:_user_id/:event_id", pageController.showEventPage);
+app.put("/users/admin/:_user_id/:event_id", pageController.updateEvent);
+app.delete("/users/admin/:_user_id/:event_id", pageController.deleteEventID);
 
 app.get("/events/all", async (req, res) => {
   const eventData = await eventModel.find({});
@@ -53,6 +55,8 @@ app.get("/users/register", userController.showRegistrationForm);
 app.post("/users/register", userController.register);
 app.get("/users/login", userController.showLoginForm);
 app.post("/users/login", userController.login);
+app.get("/users/admin/:user_id", userController.showAdminDomainPage);
+app.post("/users/admin/:user_id", userController.setDomain);
 
 app.listen(port, async () => {
   try {
