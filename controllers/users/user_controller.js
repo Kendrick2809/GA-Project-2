@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const userModel = require("../../models/users");
-const domainModel = require("../../models/domains");
+const domainModel = require("../../models/events");
 const userValidators = require("../validators/users");
 
 const controller = {
@@ -146,28 +146,21 @@ const controller = {
     const userEmail = userFindById.email;
     console.log(userEmail);
 
-    try {
-      await domainModel.create({
-        domain: domainStatus.domain,
-        admin: userEmail,
-      });
-    } catch (err) {
-      console.log(err);
-      res.send("failed to create user");
-      return;
+    if (domainStatus.flexRadioDefault[0] == "2") {
+      res.redirect("/users/admin");
+    } else if (domainStatus.flexRadioDefault[0] == "1") {
+      try {
+        await domainModel[1].create({
+          domain: domainStatus.domain,
+          admin: userEmail,
+        });
+      } catch (err) {
+        console.log(err);
+        res.send("failed to create user");
+        return;
+      }
+      res.redirect("/users/admin");
     }
-
-    // req.session.save(function (err) {
-    //   if (err) {
-    //     return next(err);
-    //   }
-
-    //   if (domainStatus.flexRadioDefault[0] == "2") {
-    //     res.redirect("/users/admin");
-    //   } else if (domainStatus.flexRadioDefault[0] == "1") {
-    //     res.redirect("/users/admin");
-    //   }
-    // });
   },
 };
 

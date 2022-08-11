@@ -20,5 +20,9 @@
     "joi": "^17.6.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.5.0"
+  },
+  "engines": {
+    "node:": "16.x",
+    "npm": "8.x"
   }
 }

@@ -7,7 +7,7 @@ const controller = {
     let eventData = null;
 
     try {
-      eventData = await eventModel.find({});
+      eventData = await eventModel[0].find({});
     } catch (err) {
       console.log(err);
       res.send("failed to find collection");
@@ -43,7 +43,7 @@ const controller = {
     ).toISOString();
 
     try {
-      await eventModel.create({
+      await eventModel[0].create({
         title: eventData.eventTitle,
         start: eventStartMoment,
         end: eventEndMoment,
@@ -68,7 +68,7 @@ const controller = {
     let eventData = null;
 
     try {
-      eventData = await eventModel.find({});
+      eventData = await eventModel[0].find({});
     } catch (err) {
       console.log(err);
       res.send("failed to find collection");
@@ -78,7 +78,7 @@ const controller = {
     console.log(eventData);
 
     try {
-      eventData = await eventModel.deleteOne({
+      eventData = await eventModel[0].deleteOne({
         title: eventToDelete.titleToDelete,
       });
     } catch (err) {
@@ -86,7 +86,7 @@ const controller = {
       res.send("failed to find collection");
       return;
       // }
-      // let event = eventModel.deleteOne({
+      // let event = eventModel[0].deleteOne({
       //   title: eventToDelete.titleToDelete,
       // });
     }
@@ -102,7 +102,7 @@ const controller = {
     // let eventData = null;
 
     // try {
-    //   eventData = await eventModel.find({});
+    //   eventData = await eventModel[0].find({});
     // } catch (err) {
     //   console.log(err);
     //   res.send("failed to find collection");
@@ -114,13 +114,13 @@ const controller = {
 
     const eventID = req.params.event_id;
 
-    // const event = await eventModel.find({});
+    // const event = await eventModel[0].find({});
 
     // const requestedEventId = event[eventID]._id;
 
     // console.log(requestedEventId);
 
-    const eventFindById = await eventModel.findById(eventID);
+    const eventFindById = await eventModel[0].findById(eventID);
 
     console.log(eventFindById);
 
@@ -145,21 +145,24 @@ const controller = {
     );
     const eventEndISO = eventEnd.toISOString();
 
-    const eventFindByIdAndUpdate = await eventModel.findByIdAndUpdate(eventID, {
-      title: eventToUpdate.titleToUpdate,
-      start: eventStartISO,
-      end: eventEndISO,
-    });
+    const eventFindByIdAndUpdate = await eventModel[0].findByIdAndUpdate(
+      eventID,
+      {
+        title: eventToUpdate.titleToUpdate,
+        start: eventStartISO,
+        end: eventEndISO,
+      }
+    );
 
-    const eventFindById = await eventModel.findByIdAndUpdate(eventID);
+    const eventFindById = await eventModel[0].findByIdAndUpdate(eventID);
 
     res.render("pages/showeventpage", { eventFindById });
   },
   deleteEventID: async (req, res) => {
     const eventID = req.params.event_id;
-    const eventFindById = await eventModel.findById(eventID);
+    const eventFindById = await eventModel[0].findById(eventID);
     try {
-      eventData = await eventModel.deleteOne({
+      eventData = await eventModel[0].deleteOne({
         _id: eventID,
       });
     } catch (err) {

@@ -7,7 +7,7 @@ const session = require("express-session");
 const eventModel = require("./models/events");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const connStr = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@generalassembly.qzxpjfv.mongodb.net/test`;
 
@@ -45,7 +45,7 @@ app.put("/users/admin/:_user_id/:event_id", pageController.updateEvent);
 app.delete("/users/admin/:_user_id/:event_id", pageController.deleteEventID);
 
 app.get("/events/all", async (req, res) => {
-  const eventData = await eventModel.find({});
+  const eventData = await eventModel[0].find({});
   console.log(eventData);
   res.json(eventData);
 });
