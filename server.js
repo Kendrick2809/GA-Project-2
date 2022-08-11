@@ -36,16 +36,25 @@ app.get("/", (req, res) => {
   res.send("I am listening");
 });
 
-app.get("/users/admin", pageController.showAdminPage);
+app.get("/users/admin/:user_id/:domain_id", pageController.showAdminPage);
 app.get("/users/user", pageController.showUserPage);
 app.post("/users/admin", pageController.inputEvent);
 app.delete("/users/admin", pageController.deleteEvent);
-app.get("/users/admin/:_user_id/:event_id", pageController.showEventPage);
-app.put("/users/admin/:_user_id/:event_id", pageController.updateEvent);
-app.delete("/users/admin/:_user_id/:event_id", pageController.deleteEventID);
+app.get(
+  "/users/admin/:user_id/:domain_id/:event_id",
+  pageController.showEventPage
+);
+app.put(
+  "/users/admin/:user_id/:domain_id/:event_id",
+  pageController.updateEvent
+);
+app.delete(
+  "/users/admin/:user_id/:domain_id/:event_id",
+  pageController.deleteEventID
+);
 
 app.get("/events/all", async (req, res) => {
-  const eventData = await eventModel[0].find({});
+  const eventData = await eventModel.find({});
   console.log(eventData);
   res.json(eventData);
 });

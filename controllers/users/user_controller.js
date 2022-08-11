@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const userModel = require("../../models/users");
-const domainModel = require("../../models/events");
+const domainModel = require("../../models/domains");
 const userValidators = require("../validators/users");
 
 const controller = {
@@ -139,6 +139,8 @@ const controller = {
     console.log("testing1");
 
     const domainStatus = req.body;
+    console.log(domainStatus);
+    console.log(domainStatus.flexRadioDefault);
 
     const userFindById = await userModel.findById(userID);
     console.log("testing2");
@@ -146,20 +148,32 @@ const controller = {
     const userEmail = userFindById.email;
     console.log(userEmail);
 
-    if (domainStatus.flexRadioDefault[0] == "2") {
+    if (domainStatus.flexRadioDefault == "2") {
       res.redirect("/users/admin");
-    } else if (domainStatus.flexRadioDefault[0] == "1") {
+    } else if (domainStatus.flexRadioDefault == "1") {
       try {
-        await domainModel[1].create({
+        await domainModel.create({
           domain: domainStatus.domain,
           admin: userEmail,
         });
       } catch (err) {
         console.log(err);
-        res.send("failed to create user");
+        res.send("failed to create domain");
         return;
       }
-      res.redirect("/users/admin");
+
+      console.log("success");
+
+      const currentDomain = await domainModel.findOne({
+        domain: domainStatus.domain,
+      });
+
+      const currentDomainID = currentDomain._id;
+
+      console.log(currentDomainID);
+      const currentRoute = userID + "/" + currentDomainID;
+
+      res.redirect(currentRoute);
     }
   },
 };
