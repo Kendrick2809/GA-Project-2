@@ -1,18 +1,19 @@
 const eventModel = require("../../models/events");
+const domainModel = require("../../models/domains");
 
 const convertDateAndTime = function (date, time) {};
 
 const controller = {
   showAdminPage: async (req, res) => {
-    const userID = req.params.user_id;
-    const domainID = req.params.domain_id;
+    const userEmail = req.query.user_email;
+    const domainName = req.query.domain_name;
 
     // let eventData = await eventModel.find({});
 
     // console.log(eventData);
     // console.log("after event data found");
 
-    res.render("pages/adminpage");
+    res.render("pages/adminpage", { userEmail, domainName });
   },
 
   showUserPage: (req, res) => {
@@ -20,7 +21,17 @@ const controller = {
   },
 
   inputEvent: async (req, res) => {
+    const userEmail = req.query.user_email;
+    console.log(userEmail);
+    console.log("input email name");
+    const domainName = req.query.domain_name;
+    console.log(domainName);
+    console.log("input domain name");
     const eventData = req.body;
+    console.log(eventData);
+
+    const eventMongo = await eventModel.find({});
+    console.log(eventMongo);
 
     if (
       !eventData.eventStartDate ||
@@ -39,6 +50,8 @@ const controller = {
 
     try {
       await eventModel.create({
+        createdBy: userEmail,
+        domain: domainName,
         title: eventData.eventTitle,
         start: eventStartMoment,
         end: eventEndMoment,
@@ -49,12 +62,19 @@ const controller = {
       return;
     }
 
-    res.redirect("/users/admin");
+    const routeQuery =
+      "?" + "user_email=" + userEmail + "&domain_name=" + domainName;
+
+    const currentRoute = routeQuery;
+
+    res.redirect(currentRoute);
   },
 
   deleteEvent: async (req, res) => {
     // res.send("I am in delete route");
     const eventToDelete = req.body;
+    const userEmail = req.query.user_email;
+    const domainName = req.query.domain_name;
 
     console.log(eventToDelete);
     console.log("start2");
@@ -85,8 +105,12 @@ const controller = {
       //   title: eventToDelete.titleToDelete,
       // });
     }
+    const routeQuery =
+      "?" + "user_email=" + userEmail + "&domain_name=" + domainName;
 
-    res.redirect("/users/admin");
+    const currentRoute = routeQuery;
+
+    res.redirect(currentRoute);
   },
 
   showEventPage: async (req, res) => {
@@ -108,29 +132,51 @@ const controller = {
     // console.log(specificEvent);
 
     const eventID = req.params.event_id;
+    const userEmail = req.query.user_email;
+    const domainName = req.query.domain_name;
 
+    console.log("testingdomainname");
+    console.log(eventID);
+    console.log(domainName);
+    console.log(userEmail);
+    console.log("aftertestingdomainname");
     // const event = await eventModel.find({});
 
     // const requestedEventId = event[eventID]._id;
 
     // console.log(requestedEventId);
 
-    const eventFindById = await eventModel.findById(eventID);
+    const eventFindById = await eventModel.findByIdAndUpdate(eventID);
 
     console.log(eventFindById);
 
-    res.render("pages/showeventpage", { eventFindById });
+    console.log("testingdomain");
+
+    res.render("pages/showeventpage", {
+      eventFindById,
+      eventID,
+      userEmail,
+      domainName,
+    });
   },
   updateEvent: async (req, res) => {
     const eventID = req.params.event_id;
+    const userEmail = req.query.user_email;
+    const domainName = req.query.domain_name;
+    console.log(eventID);
     const eventToUpdate = req.body;
+    console.log(req.body);
+    console.log("update event");
+
     const eventStart = new Date(
       eventToUpdate.startDateToUpdate +
         " " +
         eventToUpdate.updateEventStartTime +
         " UTC"
     );
+    console.log(eventStart);
     const eventStartISO = eventStart.toISOString();
+    console.log(eventStartISO);
 
     const eventEnd = new Date(
       eventToUpdate.endDateToUpdate +
@@ -148,10 +194,18 @@ const controller = {
 
     const eventFindById = await eventModel.findByIdAndUpdate(eventID);
 
-    res.render("pages/showeventpage", { eventFindById });
+    res.render("pages/showeventpage", {
+      eventFindById,
+      eventID,
+      userEmail,
+      domainName,
+    });
   },
   deleteEventID: async (req, res) => {
     const eventID = req.params.event_id;
+    const userEmail = req.query.user_email;
+    const domainName = req.query.domain_name;
+
     const eventFindById = await eventModel.findById(eventID);
     try {
       eventData = await eventModel.deleteOne({
@@ -162,7 +216,20 @@ const controller = {
       res.send("failed to find collection");
       return;
     }
-    res.render("pages/showeventpage", { eventFindById });
+    res.render("pages/showeventpage", {
+      eventFindById,
+      eventID,
+      userEmail,
+      domainName,
+    });
+  },
+
+  getAllEvent: async (req, res) => {
+    const eventData = await eventModel.find({});
+    console.log("before gather all event");
+    console.log(eventData);
+    console.log("test gather all event");
+    res.json(eventData);
   },
 };
 

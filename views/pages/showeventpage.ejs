@@ -7,7 +7,7 @@
         id="event-delete-form"
         class="mt-3"
         method="POST"
-        action="/users/admin/<%= eventFindById._id %>?_method=PUT"
+        action="/users/admin/domain/page/<%= eventFindById._id %>?user_email=<%= userEmail%>&domain_name=<%=domainName%>&_method=PUT"
       >
         <div id="edit-event-title">Update event</div>
         <div class="mb-3">
@@ -81,7 +81,7 @@
         id="event-delete-form"
         class="mt-3"
         method="POST"
-        action="/users/admin/<%= eventFindById._id %>?_method=DELETE"
+        action="/users/admin/domain/page/<%= eventID %>?_method=DELETE"
       >
         <div class="mb-3 text-center">
           <button type="submit" class="btn btn-primary" id="submit-button">
@@ -96,5 +96,9 @@
     </div>
   </div>
 </div>
+
+<div id="get-email"><%= userEmail%></div>
+
+<div id="get-domain"><%=domainName%></div>
 
 <%- include('../partials/footer'); %>

@@ -17,6 +17,8 @@ const eventdata = axios({
   let calendarEl = document.getElementById("calendar");
   let checkbox = document.getElementById("drop-remove");
 
+  const emailID = document.getElementById("get-email").innerText;
+  const domain = document.getElementById("get-domain").innerText;
   // initialize the external events
 
   new Draggable(containerEl, {
@@ -51,11 +53,20 @@ const eventdata = axios({
         return item.title === info.event.title;
       }
 
-      let ID = response.data.find(isEventTitle)._id;
+      const ID = response.data.find(isEventTitle)._id;
+      const userEmail = response.data.find(isEventTitle).createdBy;
+      const domainName = response.data.find(isEventTitle).domain;
 
-      window.location.href = "http://localhost:3000/users/admin/" + ID;
+      const routeQuery =
+        "?user_email=" + userEmail + "&domain_name=" + domainName;
+
+      window.location.href =
+        "http://localhost:3000/users/admin/domain/page/" + ID + routeQuery;
     },
-    events: response.data,
+    events: response.data.filter(function (item) {
+      console.log(item);
+      return item.domain == domain;
+    }),
     dateClick: function (info) {
       alert("clicked " + info.dateStr);
       calendar.changeView("timeGridDay", info.dateStr);

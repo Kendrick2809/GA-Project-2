@@ -25,18 +25,13 @@ const controller = {
     console.log(validatedResults.password);
     console.log(validatedResults.confirm_password);
 
-    // ensure that password and confirm_password matches
     if (validatedResults.password !== validatedResults.confirm_password) {
       res.send("passwords do not match");
       return;
     }
 
-    // todo: ensure that there is no duplicate email in DB
-
-    // hash the password
     const hash = await bcrypt.hash(validatedResults.password, 10);
 
-    // create the user and store in db
     try {
       await userModel.create({
         name: validatedResults.fullname,
@@ -63,7 +58,6 @@ const controller = {
 
     let user = null;
 
-    // get user with email from DB
     try {
       user = await userModel.findOne({ email: validatedResults.email });
     } catch (err) {
@@ -71,9 +65,9 @@ const controller = {
       return;
     }
 
-    const userID = user._id;
+    const userEmail = user.email;
 
-    // use bcrypt to compare the given password with the one store as has in DB
+    console.log(userEmail);
 
     console.log(validatedResults.password);
 
@@ -112,10 +106,12 @@ const controller = {
         // validate login type
 
         if (validatedResults.flexRadioDefault[0] == "2") {
-          const userRoute = "users/user/" + userID;
+          const routeQuery = "?" + "user_email=" + userEmail;
+          const userRoute = "users/user/domain" + routeQuery;
           res.redirect(userRoute);
         } else if (validatedResults.flexRadioDefault[0] == "1") {
-          const adminRoute = "/users/admin/" + userID;
+          const routeQuery = "?" + "user_email=" + userEmail;
+          const adminRoute = "/users/admin/domain" + routeQuery;
           res.redirect(adminRoute);
         }
       });
@@ -125,32 +121,29 @@ const controller = {
   },
 
   showAdminDomainPage: async (req, res) => {
-    const userID = req.params.user_id;
-    console.log(userID);
-    const userFindById = await userModel.findById(userID);
-    const userEmail = userFindById.email;
+    const userEmail = req.query.user_email;
     console.log(userEmail);
-    res.render("pages/admindomain", { userFindById });
+    const userFind = await userModel.findOne({ email: userEmail });
+
+    console.log(userEmail);
+    res.render("pages/admindomain", { userEmail });
   },
 
   setDomain: async (req, res) => {
-    const userID = req.params.user_id;
-    console.log(userID);
+    const userEmail = req.query.user_email;
+    console.log("testing0");
+    console.log(userEmail);
     console.log("testing1");
 
     const domainStatus = req.body;
     console.log(domainStatus);
     console.log(domainStatus.flexRadioDefault);
 
-    const userFindById = await userModel.findById(userID);
+    const userFind = await userModel.findOne({ email: userEmail });
+    console.log(userFind);
     console.log("testing2");
 
-    const userEmail = userFindById.email;
-    console.log(userEmail);
-
-    if (domainStatus.flexRadioDefault == "2") {
-      res.redirect("/users/admin");
-    } else if (domainStatus.flexRadioDefault == "1") {
+    if (domainStatus.flexRadioDefault == "1") {
       try {
         await domainModel.create({
           domain: domainStatus.domain,
@@ -161,20 +154,21 @@ const controller = {
         res.send("failed to create domain");
         return;
       }
-
-      console.log("success");
-
-      const currentDomain = await domainModel.findOne({
-        domain: domainStatus.domain,
-      });
-
-      const currentDomainID = currentDomain._id;
-
-      console.log(currentDomainID);
-      const currentRoute = userID + "/" + currentDomainID;
-
-      res.redirect(currentRoute);
     }
+
+    console.log("success");
+
+    const currentDomain = await domainModel.findOne({
+      domain: domainStatus.domain,
+    });
+
+    const currentDomainName = currentDomain.domain;
+    const routeQuery =
+      "?" + "user_email=" + userEmail + "&domain_name=" + currentDomain.domain;
+
+    const currentRoute = "/users/admin/domain/page" + routeQuery;
+
+    res.redirect(currentRoute);
   },
 };
 

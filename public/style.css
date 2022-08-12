@@ -59,3 +59,7 @@ html, body {
   #submit-button{
       color:white;
   }
+
+  #get-email, #get-domain{
+    color:white;
+  }

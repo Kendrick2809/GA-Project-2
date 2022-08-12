@@ -7,7 +7,7 @@
         id="event-form"
         class="mt-3"
         method="POST"
-        action="/users/admin/:user_id"
+        action="/users/admin/domain/page?user_email=<%= userEmail%>&domain_name=<%=domainName%>"
       >
         <div id="create-event-title">Create event</div>
         <div class="mb-3">
@@ -74,7 +74,7 @@
         id="event-delete-form"
         class="mt-3"
         method="POST"
-        action="/users/admin?_method=DELETE"
+        action="/users/admin/domain/page?user_email=<%= userEmail%>&domain_name=<%=domainName%>&_method=DELETE"
       >
         <div id="edit-event-title">Delete event</div>
         <div class="mb-3">
@@ -98,6 +98,10 @@
       <div id="calendar"></div>
     </div>
   </div>
+
+  <div id="get-email"><%= userEmail%></div>
+
+  <div id="get-domain"><%=domainName%></div>
 
   <%- include('../partials/footer'); %>
 </div>

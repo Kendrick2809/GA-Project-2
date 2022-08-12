@@ -36,36 +36,23 @@ app.get("/", (req, res) => {
   res.send("I am listening");
 });
 
-app.get("/users/admin/:user_id/:domain_id", pageController.showAdminPage);
-app.get("/users/user", pageController.showUserPage);
-app.post("/users/admin", pageController.inputEvent);
-app.delete("/users/admin", pageController.deleteEvent);
-app.get(
-  "/users/admin/:user_id/:domain_id/:event_id",
-  pageController.showEventPage
-);
-app.put(
-  "/users/admin/:user_id/:domain_id/:event_id",
-  pageController.updateEvent
-);
-app.delete(
-  "/users/admin/:user_id/:domain_id/:event_id",
-  pageController.deleteEventID
-);
+app.get("/users/admin/domain/page", pageController.showAdminPage);
+app.get("/users/user/domain/page", pageController.showUserPage);
+app.post("/users/admin/domain/page", pageController.inputEvent);
+app.delete("/users/admin/domain/page", pageController.deleteEvent);
+app.get("/users/admin/domain/page/:event_id", pageController.showEventPage);
+app.put("/users/admin/domain/page/:event_id", pageController.updateEvent);
+app.delete("/users/admin/domain/page/:event_id", pageController.deleteEventID);
 
-app.get("/events/all", async (req, res) => {
-  const eventData = await eventModel.find({});
-  console.log(eventData);
-  res.json(eventData);
-});
+app.get("/events/all", pageController.getAllEvent);
 
 // Users Routes
 app.get("/users/register", userController.showRegistrationForm);
 app.post("/users/register", userController.register);
 app.get("/users/login", userController.showLoginForm);
 app.post("/users/login", userController.login);
-app.get("/users/admin/:user_id", userController.showAdminDomainPage);
-app.post("/users/admin/:user_id", userController.setDomain);
+app.get("/users/admin/domain", userController.showAdminDomainPage);
+app.post("/users/admin/domain", userController.setDomain);
 
 app.listen(port, async () => {
   try {

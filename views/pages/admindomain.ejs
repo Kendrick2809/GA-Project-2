@@ -12,12 +12,12 @@
                     
                     <div class="content-section">
                         <div class="text-center mt-2">
-                            <h1 class="mb-2 text-2xl">Login</h1>
+                            <h1 class="mb-2 text-2xl">Set Domain</h1>
                             <div class="hr"></div>
                         </div>
                         
 
-                        <form id="domain-form" class="mt-5" method="POST" action="/users/admin/<%= userFindById._id %>">
+                        <form id="domain-form" class="mt-5" method="POST" action="/users/admin/domain?user_email=<%= userEmail %>">
 
                             <ul class="error-msgs"></ul>
 
