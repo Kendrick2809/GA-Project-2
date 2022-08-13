@@ -9,7 +9,7 @@ const eventdata = axios({
   method: "get",
   url:
     "http://localhost:3000/events/all" ||
-    "http://localhost:process.env.PORT/events/all",
+    "https://scheduler-12.herokuapp.com/events/all",
   responseType: "json",
 }).then(function (response) {
   let Calendar = FullCalendar.Calendar;
