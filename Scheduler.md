@@ -12,10 +12,23 @@ Scheduler is built with the goal of being integral part of managing one's/group 
 - Express
 - MongoDB
 - EJS
+- 
+## Models
+
+- Users
+- Domains
+- Events
+
+## Controllers
+
+- User controllers
+- Page controllers
 
 ## Feature
 
-- Create calendar domain
+- Registration
+- Login
+- Create domain
 - Input, edit, and delete event title, date, and time
 - Month, week, day, and list view
 
