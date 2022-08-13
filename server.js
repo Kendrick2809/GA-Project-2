@@ -33,7 +33,7 @@ app.use(
 
 // Page Routes
 app.get("/", (req, res) => {
-  res.send("I am listening");
+  res.redirect("/users/login");
 });
 
 app.get("/users/admin/domain/page", pageController.showAdminPage);
