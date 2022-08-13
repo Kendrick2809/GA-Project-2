@@ -81,7 +81,7 @@
         id="event-delete-form"
         class="mt-3"
         method="POST"
-        action="/users/admin/domain/page/<%= eventID %>?_method=DELETE"
+        action="/users/admin/domain/page/<%= eventFindById._id %>?user_email=<%= userEmail%>&domain_name=<%=domainName%>&_method=DELETE"
       >
         <div class="mb-3 text-center">
           <button type="submit" class="btn btn-primary" id="submit-button">

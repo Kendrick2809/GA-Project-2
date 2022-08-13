@@ -50,7 +50,16 @@
               <a class="nav-link" href="/users/register">Register</a>
             </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/users/login">Logout</a>
+              <a
+                class="nav-link"
+                href="/users/admin/domain?user_email=<%= userEmail%>"
+                >Domain: <%= domainName%></a
+              >
+            </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="/users/login"
+                ><%= userEmail%>, Logout</a
+              >
             </li>
           </ul>
         </div>
